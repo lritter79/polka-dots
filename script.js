@@ -21,11 +21,33 @@ function ready(callbackFunc) {
   
   ready(function() {
     console.log('im ready');
-    let canvas = draw();
-    document.getElementById('container').appendChild(canvas); //Add it as a child of <body>
+    var element =  document.getElementById('container');
+    console.log(`${element.clientWidth} and ${element.clientHeight}`)
+    //et widthRemainder = element.clientWidth % 50;
+    for (let i = 0; i < Math.floor(element.clientWidth/50); i++) {
+      let canvas = draw(getColor(i));
+      element.appendChild(canvas);
+    }
+     //Add it as a child of <body>
   });
 
-  function draw() {
+  function draw(color) {
     let canvas = document.createElement("canvas"); //Create canvas
+    canvas.height = '50';
+    canvas.width = '50';
+    var ctx = canvas.getContext("2d");
+    ctx.strokeStyle = color === 'white' ? 'black' : color;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(25, 25, 10, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
     return canvas;
+  }
+
+  function getColor(number) {
+    if (number % 4 === 0) return 'pink';
+    else if (number % 3 === 0) return 'white';
+    else if (number % 2 === 0) return 'orange';
+    else return 'green'
   }
