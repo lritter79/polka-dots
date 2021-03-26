@@ -21,17 +21,26 @@ function ready(callbackFunc) {
   
   ready(function() {
     console.log('im ready');
-    var element =  document.getElementById('container');
-    console.log(`${element.clientWidth} and ${element.clientHeight}`)
+    
     //et widthRemainder = element.clientWidth % 50;
-    element.appendChild(createRowOfDots(element.clientWidth))
+    let element= document.getElementById('container')
      //Add it as a child of <body>
+     createMatrixOfDots(element);
   });
 
+
+  function createMatrixOfDots(element) {
+    console.log(`${element.clientWidth} and ${element.clientHeight}`)
+    for (let i = 0; i < Math.floor(element.clientHeight/50); i++) {
+      
+      element.appendChild(createRowOfDots(element.clientWidth));
+    }
+  }
 
   function createRowOfDots(width) {
 
     let row = document.createElement("div");
+    row.className = 'row';
     for (let i = 0; i < Math.floor(width/50); i++) {
       let canvas = draw(getColor());
       row.appendChild(canvas);
