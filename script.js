@@ -26,10 +26,15 @@ function ready(callbackFunc) {
     let element= document.getElementById('container')
      //Add it as a child of <body>
      createMatrixOfDots(element);
+
+     window.setInterval(function() {
+        element.innerHTML = '';
+        createMatrixOfDots(element);
+     }, 1000);  
   });
 
 
-  function createMatrixOfDots(element) {
+  function createMatrixOfDots(element, circleSize) {
     console.log(`${element.clientWidth} and ${element.clientHeight}`)
     for (let i = 0; i < Math.floor(element.clientHeight/50); i++) {
       
@@ -48,7 +53,7 @@ function ready(callbackFunc) {
     return row;
   }
 
-  function draw(color) {
+  function draw(color, size) {
     let canvas = document.createElement("canvas"); //Create canvas
     canvas.height = '50';
     canvas.width = '50';
