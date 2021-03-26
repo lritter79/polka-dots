@@ -28,8 +28,10 @@ function ready(callbackFunc) {
      createMatrixOfDots(element);
 
      window.setInterval(function() {
-        element.innerHTML = '';
-        createMatrixOfDots(element);
+       element.removeChild(element.firstChild);
+       //.innerHTML = '';
+       //createMatrixOfDots(element);
+       element.appendChild(createRowOfDots(element.clientWidth));
      }, 1000);  
   });
 
