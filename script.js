@@ -24,19 +24,27 @@ function ready(callbackFunc) {
     var element =  document.getElementById('container');
     console.log(`${element.clientWidth} and ${element.clientHeight}`)
     //et widthRemainder = element.clientWidth % 50;
-    for (let i = 0; i < Math.floor(element.clientWidth/50); i++) {
-      let canvas = draw(getColor(i));
-      element.appendChild(canvas);
-    }
+    element.appendChild(createRowOfDots(element.clientWidth))
      //Add it as a child of <body>
   });
+
+
+  function createRowOfDots(width) {
+
+    let row = document.createElement("div");
+    for (let i = 0; i < Math.floor(width/50); i++) {
+      let canvas = draw(getColor());
+      row.appendChild(canvas);
+    }
+    return row;
+  }
 
   function draw(color) {
     let canvas = document.createElement("canvas"); //Create canvas
     canvas.height = '50';
     canvas.width = '50';
     var ctx = canvas.getContext("2d");
-    ctx.strokeStyle = color === 'white' ? 'black' : color;
+    ctx.strokeStyle = color;
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(25, 25, 10, 0, 2 * Math.PI);
@@ -45,9 +53,17 @@ function ready(callbackFunc) {
     return canvas;
   }
 
-  function getColor(number) {
-    if (number % 4 === 0) return 'pink';
-    else if (number % 3 === 0) return 'white';
-    else if (number % 2 === 0) return 'orange';
-    else return 'green'
+  function getColor() {
+    //if (number % 4 === 0) return 'pink';
+    //else if (number % 3 === 0) return 'white';
+    //else if (number % 2 === 0) return 'orange';
+    //else return 'green'
+    var r = getRandomInt(0, 255);
+    var g = getRandomInt(0, 255);
+    var b = getRandomInt(0, 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
