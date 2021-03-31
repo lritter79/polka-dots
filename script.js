@@ -52,6 +52,7 @@ function ready(callbackFunc) {
       let canvas = draw(getColor());
       row.appendChild(canvas);
     }
+   
     return row;
   }
 
@@ -67,6 +68,14 @@ function ready(callbackFunc) {
     ctx.stroke();
     ctx.fill();
     return canvas;
+  }
+
+  function move(element) {
+    console.log('movin ' + element)
+    setInterval(function() {
+      element.animate({'bottom': '+=100px'})
+    }, 1000)
+    
   }
 
   function getColor() {
